@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  roles:
+    # - base
+    # - git
+    - brew
+    # - dev
+    # - mac
+    # - gem
+    # - npm
+  user: elindorath

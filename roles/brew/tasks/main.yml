@@ -1,0 +1,23 @@
+# - name: Tap brew repos
+#   homebrew_tap:
+#     state: present
+#     name:
+#       - homebrew/cask-fonts
+
+- name: Install packages from Brew
+  homebrew:
+    state: present
+    name:
+      - gcc
+      - zsh
+      - chezmoi
+      - asdf
+      - bitwarden-cli
+      - jq
+      - fzf
+
+# - name: Install Brew Cask packages
+#   homebrew_cask:
+#     state: present
+#     name:
+#       - font-hack-nerd-font

@@ -1,0 +1,4 @@
+- name: Install package with asdf
+  asdf:
+    - node
+    -
