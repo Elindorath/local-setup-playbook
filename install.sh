@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+set -e
+
 if [[ "$OSTYPE" == "darwin"* ]]; then
   xcode-select --install
   sudo xcodebuild -license
