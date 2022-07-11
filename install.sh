@@ -3,7 +3,7 @@
 set -e
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  xcode-select --install || echo "Command line tool are already installed"
+  xcode-select --install > /dev/null || echo "Command line tool are already installed"
   sudo xcodebuild -license
 fi
 
