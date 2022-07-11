@@ -4,7 +4,7 @@ set -e
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   xcode-select --install 2> /dev/null || echo "Command line tool are already installed"
-  sudo xcodebuild -license
+  # sudo xcodebuild -license
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
