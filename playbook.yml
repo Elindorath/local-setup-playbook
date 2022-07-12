@@ -15,11 +15,11 @@
   vars_prompt:
     - name: "bw_email"
       prompt: "What is your Bitwarden email?"
-      default: ""
+      private: false
 
     - name: "bw_password"
       prompt: "What is your Bitwarden master password?"
-      default: ""
+      private: true
 
   roles:
     - dotfiles

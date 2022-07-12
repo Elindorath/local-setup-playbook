@@ -7,4 +7,4 @@
   register: bw_session
 
 - name: Install dotfiles
-  ansible.builtin.command: "BW_SESSION={{ bw_session }} chezmoi init https://github.com/elindorath/dotfiles.git --apply --branch chezmoi"
+  ansible.builtin.command: "BW_SESSION={{ bw_session.stdout }} chezmoi init https://github.com/elindorath/dotfiles.git --apply --branch chezmoi"
