@@ -13,6 +13,7 @@
   community.general.homebrew:
     name: "{{ homebrew_packages_to_install }}"
     state: present
+  tags: [ brew ]
 
 - name: Install homebrew casks
   homebrew_cask:
