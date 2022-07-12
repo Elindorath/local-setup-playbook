@@ -15,7 +15,7 @@ homebrew_packages_to_install:
   # Asdf dependencies - end
   # Awscli asdf plugin dependencies
   - bash
-  - tar
+  # - tar
   - unzip
   # Awscli asdf plugin dependencies - end
   - zsh
