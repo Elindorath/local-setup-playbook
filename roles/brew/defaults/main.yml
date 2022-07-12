@@ -74,7 +74,8 @@ homebrew_casks_to_install:
   - suspicious-package
   - apparency
   - quicklookase
-  - qlvideo
+  # Need rosetta 2
+  # - qlvideo
   - provisionql
   - quicklookapk
   - quicklook-pat
