@@ -1,0 +1,18 @@
+---
+- name: Clock - Display date and hour
+  community.general.osx_defaults:
+    domain: com.apple.menuextra.clock
+    key: DateFormat
+    type: string
+    value: "EEE d MMM '\\340'  HH:mm"
+    state: present
+  notify: killall systemuiserver
+
+- name: Clock - Display time in analog format
+  community.general.osx_defaults:
+    domain: com.apple.menuextra.clock
+    key: IsAnalog
+    type: bool
+    value: true
+    state: present
+  notify: killall systemuiserver

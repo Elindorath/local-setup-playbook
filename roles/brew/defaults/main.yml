@@ -1,0 +1,80 @@
+---
+homebrew_repositories_to_tap:
+  - homebrew/cask-fonts
+
+homebrew_packages_to_install:
+  - openssl
+  - readline
+  - sqlite3
+  - xz
+  - zlib
+  - gcc
+  # Asdf dependencies
+  - git
+  - curl
+  # Asdf dependencies - end
+  # Awscli asdf plugin dependencies
+  - bash
+  - tar
+  - unzip
+  # Awscli asdf plugin dependencies - end
+  - zsh
+  - chezmoi
+  - asdf
+  - bitwarden-cli
+  - jq
+  - fzf
+  - mas
+  - dockutil
+  - htop
+  - chroma
+  - shellcheck
+  - tree
+  - vim
+  - ansible-lint
+  # Node dependencies
+  - gpg
+  - gawk
+  # Ruby dependencies
+  # - openssl@1.1
+  # - readline
+  # Quick Look plugins
+  - qlcolorcode
+  - qlstephen
+  - qlmarkdown
+  - quicklook-json
+  - qlimagesize
+  - suspicious-package
+  - apparency
+  - quicklookase
+  - qlvideo
+  - provisionql
+  - quicklookapk
+  - quicklook-pat
+# pinentry
+
+homebrew_casks_to_install:
+  - google-chrome
+  - firefox
+  - iterm2
+  - visual-studio-code
+  - slack
+  - notion
+  - spotify
+  - postico
+  - postman
+  - whatsapp
+  - teamviewer
+  - react-native-debugger
+  - the-unarchiver
+  - vlc
+  - discord
+  - istat-menus
+  - spectacle
+  - bartender
+  - cleanmymac
+  - alfred
+  - daisydisk
+  - docker
+  - beardedspice
+  - font-hack-nerd-font

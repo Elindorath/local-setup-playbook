@@ -1,4 +1,14 @@
-- name: Install package with asdf
-  asdf:
-    - node
-    -
+---
+- name: Install asdf plugins
+  ansible.builtin.command: "asdf plugin add {{ item.name }} {{ item.repository }}"
+  with_items: "{{ asdf_plugins_to_install }}"
+
+- name: Install asdf plugin tool versions
+  ansible.builtin.command: "asdf install {{ item.0.name }} {{ item.1 }}"
+  with_subelements:
+    - "{{ asdf_plugins_to_install }}"
+    - versions
+
+- name: Set asdf plugin tool global versions
+  ansible.builtin.command: "asdf global {{ item.name }} {{ item.global }}"
+  with_items: "{{ asdf_plugins_to_install }}"

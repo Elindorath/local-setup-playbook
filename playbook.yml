@@ -2,9 +2,20 @@
 
 - hosts: all
   roles:
+    - prepare
+    - brew
+    - app-store
+    - dock
+    - osx-defaults
+    - asdf
+    - dotfiles
+    # - ssh
+    # - vim
+    # - iterm
+    # - vscode
+
     # - base
     # - git
-    - brew
     # - dev
     # - mac
     # - gem

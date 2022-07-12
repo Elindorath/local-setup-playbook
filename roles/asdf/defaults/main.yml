@@ -1,0 +1,46 @@
+---
+asdf_plugins_to_install:
+  - name: direnv
+    repository: https://github.com/asdf-community/asdf-direnv.git
+    versions:
+      - latest
+    global: latest
+    after_install: asdf direnv setup --shell zsh --version latest
+  - name: nodejs
+    repository: https://github.com/asdf-vm/asdf-nodejs.git
+    versions:
+      - latest
+    global: latest
+  - name: terraform
+    repository: https://github.com/asdf-community/asdf-hashicorp.git
+    versions:
+      - latest
+    global: latest
+  - name: terraform-ls
+    repository: https://github.com/asdf-community/asdf-hashicorp.git
+    versions:
+      - latest
+    global: latest
+  - name: awscli
+    repository: https://github.com/MetricMike/asdf-awscli.git
+    versions:
+      - latest
+    global: latest
+  - name: python
+    repository: https://github.com/danhper/asdf-python
+    versions:
+      - latest
+    global: latest
+  # Needs dependencies: https://github.com/rbenv/ruby-build/wiki#suggested-build-environment
+  # - name: ruby
+  #   repository: https://github.com/asdf-vm/asdf-ruby.git
+  #   versions:
+  #     - latest
+  #   global: latest
+
+# hadolint
+# ruby
+# terraform
+# tflint
+# pnpm
+# python

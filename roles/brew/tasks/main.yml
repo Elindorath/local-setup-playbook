@@ -1,23 +1,20 @@
-# - name: Tap brew repos
-#   homebrew_tap:
-#     state: present
-#     name:
-#       - homebrew/cask-fonts
+---
+- name: Update and upgrade packages for Homebrew
+  community.general.homebrew:
+    update_homebrew: yes
+    upgrade_all: yes
 
-- name: Install packages from Brew
-  homebrew:
+- name: Tap brew repos
+  community.general.homebrew_tap:
     state: present
-    name:
-      - gcc
-      - zsh
-      - chezmoi
-      - asdf
-      - bitwarden-cli
-      - jq
-      - fzf
+    name: "{{ homebrew_repositories_to_tap }}"
 
-# - name: Install Brew Cask packages
-#   homebrew_cask:
-#     state: present
-#     name:
-#       - font-hack-nerd-font
+- name: Install homebrew packages
+  community.general.homebrew:
+    name: "{{ homebrew_packages_to_install }}"
+    state: present
+
+- name: Install homebrew casks
+  homebrew_cask:
+    name: "{{ homebrew_casks_to_install }}"
+    state: present

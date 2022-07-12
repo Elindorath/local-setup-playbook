@@ -1,0 +1,110 @@
+---
+- name: Dock - Position bottom
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: orientation
+    type: string
+    value: bottom
+    state: present
+  notify: killall dock
+
+- name: Dock - Set icons size
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: tilesize
+    type: integer
+    value: 32
+    state: present
+  notify: killall dock
+
+- name: Dock - Automatically hide the Dock
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: autohide
+    type: bool
+    value: true
+    state: present
+  notify: killall dock
+
+- name: Dock - Don’t show recent applications in Dock
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: show-recents
+    type: bool
+    value: false
+    state: present
+  notify: killall dock
+
+- name: Dock - Don’t automatically rearrange Spaces based on most recent use
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: mru-spaces
+    type: bool
+    value: false
+    state: present
+  notify: killall dock
+
+- name: Dock - Enable magnification effect
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: magnification
+    type: bool
+    value: true
+    state: present
+  notify: killall dock
+
+- name: Dock - Set animation to genius
+  community.general.osx_defaults:
+    domain: com.apple.dock
+    key: mineffect
+    type: string
+    value: genie
+    state: present
+  notify: killall dock
+
+- name: Dock - Maximize window when double clic
+  community.general.osx_defaults:
+    domain: NSGlobalDomain
+    key: AppleActionOnDoubleClick
+    type: string
+    value: Maximize
+    state: present
+  notify: killall dock
+
+
+
+# - name: Dock - Hot corners
+#   community.general.osx_defaults:
+#     domain: com.apple.dock
+#     key: wvous-br-corner
+#     type: int
+#     value: 13 # Lock the screen
+#     state: present
+#   notify: killall dock
+
+# - name: Dock - Hot corners
+#   community.general.osx_defaults:
+#     domain: com.apple.dock
+#     key: wvous-bl-modifier
+#     type: int
+#     value: 0
+#     state: present
+#   notify: killall dock
+
+# - name: Dock - Don’t show Dashboard as a Space
+#   community.general.osx_defaults:
+#     domain: com.apple.dock
+#     key: dashboard-in-overlay
+#     type: bool
+#     value: true
+#     state: present
+#   notify: killall dock
+
+# - name: Dock - Reset Launchpad
+#   community.general.osx_defaults:
+#     domain: com.apple.dock
+#     key: ResetLaunchPad
+#     type: bool
+#     value: true
+#     state: present
+#   notify: killall dock
