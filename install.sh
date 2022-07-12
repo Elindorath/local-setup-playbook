@@ -27,15 +27,15 @@ brew install asdf openssl readline sqlite3 xz zlib
 
 # Install Python
 echo "Installing python"
-asdf plugin add python
-asdf install python latest
-asdf global python latest
+asdf plugin add python || echo "python asdf plugin already installed"
+asdf install python latest || echo "python version already installed"
+asdf global python latest || echo "python version already set globally"
 
 # Install Ansible
 echo "Installing ansible"
-asdf plugin add ansible-base https://github.com/amrox/asdf-pyapp.git
-asdf install ansible-base latest
-asdf global ansible-base latest
+asdf plugin add ansible-base https://github.com/amrox/asdf-pyapp.git  || echo "ansible asdf plugin already installed"
+asdf install ansible-base latest || echo "ansible version already installed"
+asdf global ansible-base latest || echo "python version already set globally"
 
 
 
