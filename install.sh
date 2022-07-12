@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-set -e
+# set -e
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   xcode-select --install 2> /dev/null || echo "Command line tool are already installed"
@@ -25,7 +25,7 @@ fi
 echo "Installing asdf"
 brew install asdf openssl readline sqlite3 xz zlib
 
-echo "Configure asdf"
+echo "Configuring asdf"
 # shellcheck source=/usr/local/opt/asdf/libexec/asdf.sh
 source "$(brew --prefix asdf)/libexec/asdf.sh"
 
