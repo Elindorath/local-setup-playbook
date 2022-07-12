@@ -1,3 +1,3 @@
 ---
 - name: Install dotfiles
-  ansible.builtin.command: chezmoi init https://github.com/elindorath/dotfiles.git --apply
+  ansible.builtin.command: "chezmoi init https://github.com/elindorath/dotfiles.git --apply --branch chezmoi"
