@@ -38,19 +38,6 @@ homebrew_packages_to_install:
   # Ruby dependencies
   # - openssl@1.1
   # - readline
-  # Quick Look plugins
-  - qlcolorcode
-  - qlstephen
-  - qlmarkdown
-  - quicklook-json
-  - qlimagesize
-  - suspicious-package
-  - apparency
-  - quicklookase
-  - qlvideo
-  - provisionql
-  - quicklookapk
-  - quicklook-pat
 # pinentry
 
 homebrew_casks_to_install:
@@ -78,3 +65,16 @@ homebrew_casks_to_install:
   - docker
   - beardedspice
   - font-hack-nerd-font
+  # Quick Look plugins
+  - qlcolorcode
+  - qlstephen
+  - qlmarkdown
+  - quicklook-json
+  - qlimagesize
+  - suspicious-package
+  - apparency
+  - quicklookase
+  - qlvideo
+  - provisionql
+  - quicklookapk
+  - quicklook-pat
