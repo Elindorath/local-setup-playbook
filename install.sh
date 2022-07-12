@@ -55,5 +55,8 @@ asdf global ansible-base latest || echo "python version already set globally"
 #     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 # fi
 
+echo "Installing ansible collections and roles"
+ansible-galaxy install -r requirements.yml
+
 echo "Running ansible playbook"
 ansible-playbook -i "localhost," -c local --become-method=su playbook.yml
