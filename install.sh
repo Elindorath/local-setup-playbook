@@ -25,6 +25,10 @@ fi
 echo "Installing asdf"
 brew install asdf openssl readline sqlite3 xz zlib
 
+echo "Configure asdf"
+# shellcheck source=/usr/local/opt/asdf/libexec/asdf.sh
+source "$(brew --prefix asdf)/libexec/asdf.sh"
+
 # Install Python
 echo "Installing python"
 asdf plugin add python || echo "python asdf plugin already installed"
@@ -36,7 +40,6 @@ echo "Installing ansible"
 asdf plugin add ansible-base https://github.com/amrox/asdf-pyapp.git  || echo "ansible asdf plugin already installed"
 asdf install ansible-base latest || echo "ansible version already installed"
 asdf global ansible-base latest || echo "python version already set globally"
-
 
 
 
