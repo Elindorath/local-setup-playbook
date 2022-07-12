@@ -5,6 +5,7 @@
 if [[ "$OSTYPE" == "darwin"* ]]; then
   xcode-select --install 2> /dev/null || echo "Command line tool are already installed"
   # sudo xcodebuild -license
+  softwareupdate --install-rosetta --agree-to-license || echo "Rosetta is already installed"
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
