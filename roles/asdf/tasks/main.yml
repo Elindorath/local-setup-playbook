@@ -2,6 +2,10 @@
 - name: Install asdf plugins
   ansible.builtin.command: "asdf plugin add {{ item.name }} {{ item.repository }}"
   with_items: "{{ asdf_plugins_to_install }}"
+  register: result_plugin
+  failed_when:
+    - result_plugin.rc != 0
+    - '"already added" not in result_plugin.stderr'
 
 - name: Install asdf plugin tool versions
   ansible.builtin.command: "asdf install {{ item.0.name }} {{ item.1 }}"
