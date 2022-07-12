@@ -3,61 +3,91 @@
 # set -e
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  xcode-select --install 2> /dev/null || echo "Command line tool are already installed"
+  if ! xcode-select -p 1>/dev/null 2>&1; then
+    echo "Installing command line tools"
+    xcode-select --install
+  fi
+
   # sudo xcodebuild -license
+
+  echo "Installing rosetta 2"
   softwareupdate --install-rosetta --agree-to-license || echo "Rosetta is already installed"
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  echo "Installing build-essential"
   sudo apt-get install build-essential
 fi
 
 # Install Homebrew, if not already installed
 if [[ -x "/home/linuxbrew/.linuxbrew/bin/brew" ]]; then
+  echo "Setting homebrew env for linux"
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+elif [[ -x "/opt/homebrew/bin/brew" ]]; then
+  echo "Setting homebrew env for mac (M1)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x "/usr/local/bin/brew" ]]; then
+  echo "Setting homebrew env for mac (Intel)"
+  eval "$(/usr/local/bin/brew shellenv)"
 else
   echo "Installing homebrew"
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-  echo "Setting homebrew env"
-  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Install asdf with its dependencies
-echo "Installing asdf"
-brew install asdf openssl readline sqlite3 xz zlib
+if ! which asdf 1>/dev/null 2>&1; then
+  echo "Installing asdf"
+  brew install asdf openssl readline sqlite3 xz zlib
+else
+  echo "asdf is already installed"
+fi
 
 echo "Configuring asdf"
 # shellcheck source=/usr/local/opt/asdf/libexec/asdf.sh
 source "$(brew --prefix asdf)/libexec/asdf.sh"
 
 # Install Python
-echo "Installing python"
-asdf plugin add python || echo "python asdf plugin already installed"
-asdf install python latest || echo "python version already installed"
-asdf global python latest || echo "python version already set globally"
+if ! which python 1>/dev/null 2>&1; then
+  echo "Installing python"
+  asdf plugin add python || echo "python asdf plugin already installed"
+  asdf install python latest || echo "python version already installed"
+  asdf global python latest || echo "python version already set globally"
+else
+  echo "python is already installed"
+fi
 
 # Install Ansible
-echo "Installing ansible"
-asdf plugin add ansible-base https://github.com/amrox/asdf-pyapp.git  || echo "ansible asdf plugin already installed"
-asdf install ansible-base latest || echo "ansible version already installed"
-asdf global ansible-base latest || echo "python version already set globally"
+if ! which ansible 1>/dev/null 2>&1; then
+  echo "Installing ansible"
+  asdf plugin add ansible-base https://github.com/amrox/asdf-pyapp.git  || echo "ansible asdf plugin already installed"
+  asdf install ansible-base latest || echo "ansible version already installed"
+  asdf global ansible-base latest || echo "python version already set globally"
+else
+  echo "ansible is already installed"
+fi
 
-
-
-
-
-
-# Install Ansible, if not already installed
-# which ansible-playbook > /dev/null || brew install ansible
-
-# Provision machine with ansible
-
-# if [ ! -d "~/.oh-my-zsh" ]; then
-#     sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-# fi
-
-echo "Installing ansible collections and roles"
-ansible-galaxy install -r requirements.yml
+if [ ! -d ".ansible/collections/ansible_collections/community/general" ]; then
+  echo "Installing ansible requirements"
+  ansible-galaxy install -r requirements.yml
+else
+  echo "ansible requirements are already installed"
+fi
 
 echo "Running ansible playbook"
 ansible-playbook -i "localhost," -c local --become-method=su playbook.yml
+
+echo "\
+You still need to do a few things:
+
+--- Alfred ---
+- Set hotkey
+- Set search scope
+- Request permissions
+
+--- Google Chrome ---
+- Connect to your accounts
+- Allow notifications permission
+
+--- Teamviewer ---
+- Request permissions
+"

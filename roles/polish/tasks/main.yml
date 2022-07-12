@@ -1,0 +1,3 @@
+---
+- name: Set Google Chrome as default browser
+  ansible.builtin.command: "open -a \"Google Chrome\" --args --make-default-browser"
