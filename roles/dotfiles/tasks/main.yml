@@ -1,3 +1,10 @@
 ---
+- name: Login in Bitwarden
+  ansible.builtin.command: "bw login --raw {{ bw_email }} {{ bw_password }}"
+
+- name: Unlock Bitwarden vault
+  ansible.builtin.command: "bw unlock --raw {{ bw_password }}"
+  register: bw_session
+
 - name: Install dotfiles
-  ansible.builtin.command: "chezmoi init https://github.com/elindorath/dotfiles.git --apply --branch chezmoi"
+  ansible.builtin.command: "BW_SESSION={{ bw_session }} chezmoi init https://github.com/elindorath/dotfiles.git --apply --branch chezmoi"

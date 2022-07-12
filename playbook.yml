@@ -1,6 +1,7 @@
 ---
 
-- hosts: all
+- name: Install & setup
+  hosts: all
   roles:
     - prepare
     - brew
@@ -8,6 +9,19 @@
     - dock
     - osx-defaults
     - asdf
+
+- name: Install dotfiles
+  hosts: all
+  vars_prompt:
+    - name: "bw_email"
+      prompt: "What is your Bitwarden email?"
+      default: ""
+
+    - name: "bw_password"
+      prompt: "What is your Bitwarden master password?"
+      default: ""
+
+  roles:
     - dotfiles
     # - ssh
     # - vim
