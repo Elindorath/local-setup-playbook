@@ -1,6 +1,10 @@
 ---
 - name: Login in Bitwarden
   ansible.builtin.command: "bw login --raw {{ bw_email }} {{ bw_password }}"
+  register: bw_login_result
+  failed_when:
+    - bw_login_result.rc != 0
+    - '"You are already logged in" not in bw_login_result.stderr'
 
 - name: Unlock Bitwarden vault
   ansible.builtin.command: "bw unlock --raw {{ bw_password }}"
