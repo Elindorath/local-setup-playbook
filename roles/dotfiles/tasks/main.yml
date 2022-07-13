@@ -10,5 +10,19 @@
   ansible.builtin.command: "bw unlock --raw {{ bw_password }}"
   register: bw_session
 
-- name: Install dotfiles
+- name: Get chezmoi source path
+  ansible.builtin.command: "chezmoi source-path"
+  register: chezmoi_source_path
+
+- name: Check chezmoi directory existence
+  ansible.builtin.stat:
+    path: "{{ chezmoi_source_path.stdout }}"
+  register: chezmoi_source_directory
+
+- name: Install chezmoi source
   ansible.builtin.shell: "BW_SESSION={{ bw_session.stdout }} chezmoi init https://github.com/elindorath/dotfiles.git --apply --branch chezmoi"
+  when: not chezmoi_source_directory.stat.exists
+
+- name: Update chezmoi source
+  ansible.builtin.shell: "BW_SESSION={{ bw_session.stdout }} chezmoi update"
+  when: chezmoi_source_directory.stat.exists
