@@ -5,7 +5,7 @@
   notify: killall dock
 
 - name: Set the default Dock items
-  ansible.builtin.command: "/usr/local/bin/dockutil --add {{ item }} --no-restart"
+  ansible.builtin.command: "/usr/local/bin/dockutil --add {{ item | quote }} --no-restart"
   with_items: "{{ dock_applications }}"
   changed_when: true
   notify: killall dock
