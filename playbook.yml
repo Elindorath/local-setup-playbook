@@ -23,6 +23,7 @@
 
   roles:
     - dotfiles
+    - polish
     # - ssh
     # - vim
     # - iterm
