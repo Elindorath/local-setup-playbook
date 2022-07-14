@@ -82,7 +82,7 @@ else
 fi
 
 echo "Running ansible playbook"
-ansible-playbook -i "localhost," -c local --become-method=su playbook.yml
+ansible-playbook -i "localhost," -c local --become-method=su -u "$(whoami)" playbook.yml
 
 echo "\
 You still need to do a few things:
