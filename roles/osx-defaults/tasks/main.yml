@@ -1,21 +1,21 @@
 ---
 - name: Setup Clock
-  ansible.builtin.include: _clock.yml
+  ansible.builtin.include_tasks: _clock.yml
 
 - name: Setup Dock
-  ansible.builtin.include: _dock.yml
+  ansible.builtin.include_tasks: _dock.yml
 
 - name: Setup Finder
-  ansible.builtin.include: _finder.yml
+  ansible.builtin.include_tasks: _finder.yml
 
 - name: Setup iTerm2
-  ansible.builtin.include: _iterm2.yml
+  ansible.builtin.include_tasks: _iterm2.yml
 
 - name: Setup Safari
-  ansible.builtin.include: _safari.yml
+  ansible.builtin.include_tasks: _safari.yml
 
 - name: Setup Settings
-  ansible.builtin.include: _settings.yml
+  ansible.builtin.include_tasks: _settings.yml
 
 - name: Setup TextEdit
-  ansible.builtin.include: _textedit.yml
+  ansible.builtin.include_tasks: _textedit.yml
