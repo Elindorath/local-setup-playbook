@@ -3,3 +3,14 @@
   community.general.mas:
     state: present
     id: "{{ mac_application_ids_to_install }}"
+
+# --------------------------------------------- #
+# This doesn't work even in sudo
+# No apps seems to be installed for root user
+# See: https://github.com/mas-cli/mas/issues/216
+# --------------------------------------------- #
+# - name: Uninstall Mac App Store applications
+#   community.general.mas:
+#     state: absent
+#     id: "{{ mac_application_ids_to_uninstall }}"
+#   become: true
