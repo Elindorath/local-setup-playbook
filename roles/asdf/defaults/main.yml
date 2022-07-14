@@ -1,11 +1,24 @@
 ---
 asdf_plugins_to_install:
+  # It's important that direnv is the first plugin to be installed
   - name: direnv
     repository: https://github.com/asdf-community/asdf-direnv.git
     versions:
       - latest
     global: latest
     after_install: asdf direnv setup --shell zsh --version latest
+  - name: python
+    repository: https://github.com/danhper/asdf-python
+    versions:
+      - latest
+    global: latest
+  - name: ansible-base
+    repository: https://github.com/amrox/asdf-pyapp
+    versions:
+      - latest
+    global: latest
+    environment:
+      - ASDF_PYAPP_INCLUDE_DEPS: 1
   - name: nodejs
     repository: https://github.com/asdf-vm/asdf-nodejs.git
     versions:
@@ -23,11 +36,6 @@ asdf_plugins_to_install:
     global: latest
   - name: awscli
     repository: https://github.com/MetricMike/asdf-awscli.git
-    versions:
-      - latest
-    global: latest
-  - name: python
-    repository: https://github.com/danhper/asdf-python
     versions:
       - latest
     global: latest
