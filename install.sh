@@ -1,6 +1,6 @@
 #! /usr/bin/env bash
 
-# set -e
+set -e
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
   if ! xcode-select -p 1>/dev/null 2>&1; then
@@ -47,7 +47,7 @@ echo "Configuring asdf"
 source "$(brew --prefix asdf)/libexec/asdf.sh"
 
 # Install Python
-if ! which python 1>/dev/null 2>&1; then
+if ! asdf which python 1>/dev/null 2>&1; then
   echo "Installing python"
   asdf plugin add python || echo "python asdf plugin already installed"
   asdf install python latest || echo "python version already installed"
@@ -56,14 +56,22 @@ else
   echo "python is already installed"
 fi
 
+if [ ! -f "$HOME/.tool-versions" ] || ! grep python < ~/.tool-versions; then
+  asdf global python latest
+fi
+
 # Install Ansible
-if ! which ansible 1>/dev/null 2>&1; then
+if ! asdf which ansible 1>/dev/null 2>&1; then
   echo "Installing ansible"
-  asdf plugin add ansible-base https://github.com/amrox/asdf-pyapp.git  || echo "ansible asdf plugin already installed"
-  asdf install ansible-base latest || echo "ansible version already installed"
-  asdf global ansible-base latest || echo "python version already set globally"
+  ASDF_PYAPP_INCLUDE_DEPS=1 asdf plugin add ansible https://github.com/amrox/asdf-pyapp.git  || echo "ansible asdf plugin already installed"
+  asdf install ansible latest || echo "ansible version already installed"
+  asdf global ansible latest || echo "python version already set globally"
 else
   echo "ansible is already installed"
+fi
+
+if [ ! -f "$HOME/.tool-versions" ] || ! grep ansible < ~/.tool-versions; then
+  asdf global ansible latest
 fi
 
 if [ ! -d ".ansible/collections/ansible_collections/community/general" ]; then
@@ -90,4 +98,27 @@ You still need to do a few things:
 
 --- Teamviewer ---
 - Request permissions
+
+--- General ---
+- If you have the notification icons crossed out, run `killall NotificationCenter`
 "
+
+echo "Some settings need you to re-log into your session"
+while true; do
+  read -p "Do you want to be logged out? (y/n) " yn
+  case "$yn" in
+    [yY])
+      echo "Logging out in 5s..."
+      sleep 5
+      launchctl bootout "gui/$(id -u $(whoami))"
+      break
+      ;;
+    [nN])
+      echo "Quitting without logging out"
+      exit
+      ;;
+    *)
+      echo "Invalid response"
+      ;;
+  esac
+done
