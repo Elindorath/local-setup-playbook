@@ -1,5 +1,4 @@
 ---
-
 - name: Install & setup
   hosts: all
   roles:
@@ -9,30 +8,6 @@
     - dock
     - osx-defaults
     - asdf
-
-- name: Install dotfiles
-  hosts: all
-  vars_prompt:
-    - name: "bw_email"
-      prompt: "What is your Bitwarden email?"
-      private: false
-
-    - name: "bw_password"
-      prompt: "What is your Bitwarden master password?"
-      private: true
-
-  roles:
     - dotfiles
     - polish
-    # - ssh
-    # - vim
-    # - iterm
-    # - vscode
-
-    # - base
-    # - git
-    # - dev
-    # - mac
-    # - gem
-    # - npm
   user: elindorath
