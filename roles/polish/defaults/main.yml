@@ -1,0 +1,22 @@
+---
+repositories_to_clone:
+  - repo: "https://github.com/elindorath/local-setup-playbook.git"
+    directory: "{{ ansible_env.HOME }}/dev/"
+
+finder_favorites:
+  - name: Récents
+    uri: file:///System/Library/CoreServices/Finder.app/Contents/Resources/MyLibraries/myDocuments.cannedSearch/
+  - name: elindorath
+    uri: file:///Users/elindorath/
+  - name: Téléchargements
+    uri: file:///Users/elindorath/Downloads/
+  - name: Dev
+    uri: file:///Users/elindorath/dev/
+  - name: Screenshots
+    uri: file:///Users/elindorath/Screenshots/
+  - name: Images
+    uri: file:///Users/elindorath/Pictures/
+  - name: Bureau
+    uri: file:///Users/elindorath/Desktop/
+  - name: Applications
+    uri: file:///Applications/

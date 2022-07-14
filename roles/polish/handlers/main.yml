@@ -1,0 +1,4 @@
+---
+- name: killall NotificationCenter
+  ansible.builtin.command: killall NotificationCenter
+  ignore_errors: true

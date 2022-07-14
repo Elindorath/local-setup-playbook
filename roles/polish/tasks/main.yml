@@ -1,3 +1,48 @@
 ---
+# Chrome
 - name: Set Google Chrome as default browser
   ansible.builtin.command: "open -a \"Google Chrome\" --args --make-default-browser"
+
+# Finder favorites
+- name: Get finder favorites list
+  ansible.builtin.command: "mysides list"
+  register: existing_finder_favorites
+
+- name: Remove all finder favorites
+  ansible.builtin.command: "mysides remove {{ item }}"
+  loop: "{{ existing_finder_favorites.stdout | split('\n') | map('split', ' -> ') | map('first') }}"
+  when: item | length > 0
+
+- name: Set finder favorites
+  ansible.builtin.command: "mysides add {{ item.name }} {{ item.uri }}"
+  loop: "{{ finder_favorites }}"
+
+# Basic dev architecture
+- name: Create dev directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/dev"
+    state: directory
+
+- name: Set symlink to chezmoi repository
+  ansible.builtin.file:
+    src: "{{ chezmoi_source_path.stdout }}"
+    dest: "{{ ansible_env.HOME }}/dev/dotfiles"
+    state: link
+
+- name: Infer repositories config
+  ansible.builtin.set_fact:
+    repositories_to_clone_config: "{{ (repositories_to_clone_config | default([])) + [ item | combine({ 'dest': (item.directory, item.repo | split('/') | last | splitext | first) | path_join }) ] }}"
+  loop: "{{ repositories_to_clone }}"
+
+- name: Ensure parent directories of repositories exist
+  ansible.builtin.file:
+    path: "{{ item.directory }}"
+    state: directory
+  loop: "{{ repositories_to_clone_config }}"
+
+- name: Clone repositories
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    update: false
+  loop: "{{ repositories_to_clone_config }}"

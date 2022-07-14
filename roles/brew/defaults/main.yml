@@ -81,3 +81,4 @@ homebrew_casks_to_install:
   # Temporary solution until the original formula is updated in homebrew
   # See: https://github.com/kcrawford/dockutil/issues/127
   - hpedrorodrigues/tools/dockutil
+  - mysides
