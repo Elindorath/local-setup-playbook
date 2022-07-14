@@ -10,8 +10,12 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
   # sudo xcodebuild -license
 
-  echo "Installing rosetta 2"
-  softwareupdate --install-rosetta --agree-to-license || echo "Rosetta is already installed"
+  if ! /usr/bin/pgrep oahd 1>/dev/null 2>&1; then
+    echo "Installing rosetta 2"
+    softwareupdate --install-rosetta --agree-to-license || echo "Rosetta is already installed"
+  else
+    echo "rosetta 2 is already installed"
+  fi
 fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
