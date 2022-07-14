@@ -1,6 +1,6 @@
 ---
 - name: Remove all items from the Dock
-  ansible.builtin.command: "/usr/local/bin/dockutil --remove all"
+  ansible.builtin.command: "/usr/local/bin/dockutil --remove all --no-restart"
   changed_when: true
   notify: killall dock
 
