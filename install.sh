@@ -8,9 +8,14 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     xcode-select --install
   fi
 
-  if which xcodebuild 1>/dev/null 2>&1 && ! xcodebuild -checkFirstLaunchStatus 1>/dev/null 2>&1; then
-    echo "Accepting Xcode license"
-    sudo xcodebuild -license accept
+  if which xcodebuild 1>/dev/null 2>&1; then
+    xcode_version=$(xcodebuild -version | grep '^Xcode\s' | sed -E 's/^Xcode[[:space:]]+([0-9\.]+)/\1/')
+    accepted_license_version=$(defaults read /Library/Preferences/com.apple.dt.Xcode 2> /dev/null | grep IDEXcodeVersionForAgreedToGMLicense | cut -d '"' -f 2)
+
+    if [ "$xcode_version" != "$accepted_license_version" ]; then
+      echo "Accepting Xcode license"
+      sudo xcodebuild -license accept
+    fi
   fi
 
   if ! /usr/bin/pgrep oahd 1>/dev/null 2>&1; then
