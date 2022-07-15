@@ -62,7 +62,6 @@ homebrew_casks_to_install:
   - alfred
   - daisydisk
   - docker
-  - beardedspice
   - font-hack-nerd-font
   # Quick Look plugins
   - qlcolorcode

@@ -18,7 +18,7 @@ asdf_plugins_to_install:
       - latest
     global: latest
     environment:
-      - ASDF_PYAPP_INCLUDE_DEPS: 1
+      ASDF_PYAPP_INCLUDE_DEPS: 1
   - name: nodejs
     repository: https://github.com/asdf-vm/asdf-nodejs.git
     versions:

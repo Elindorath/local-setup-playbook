@@ -4,14 +4,16 @@
     prompt: What is your Bitwarden email?
     echo: true
   register: bw_email
-  when: ansible_env.BW_SESSION is not defined
+  when:
+    - ansible_env.BW_SESSION is not defined
 
 - name: Ask for bitwarden password
   ansible.builtin.pause:
     prompt: What is your Bitwarden master password?
     echo: false
   register: bw_password
-  when: ansible_env.BW_SESSION is not defined
+  when:
+    - ansible_env.BW_SESSION is not defined
 
 - name: Login in Bitwarden
   ansible.builtin.command: "bw login --raw {{ bw_email.user_input }} {{ bw_password.user_input }}"
@@ -19,20 +21,24 @@
   failed_when:
     - bw_login_result.rc != 0
     - '"You are already logged in" not in bw_login_result.stderr'
-  when: ansible_env.BW_SESSION is not defined
+  when:
+    - ansible_env.BW_SESSION is not defined
 
 - name: Unlock Bitwarden vault
   ansible.builtin.command: "bw unlock --raw {{ bw_password.user_input }}"
-  register: bw_session
-  when: ansible_env.BW_SESSION is not defined
+  register: bw_session_command
+  when:
+    - ansible_env.BW_SESSION is not defined
 
 - name: Set BW_SESSION fact
   ansible.builtin.set_fact:
-    BW_SESSION: "{{ (ansible_env.BW_SESSION is defined) | ternary(ansible_env.BW_SESSION, bw_session.stdout) }}"
+    bw_session: "{{ ansible_env.BW_SESSION | default(bw_session_command.stdout) }}"
 
 - name: Get chezmoi source path
   ansible.builtin.command: "chezmoi source-path"
   register: chezmoi_source_path
+  changed_when:
+    - chezmoi_source_path.rc != 0
 
 - name: Check chezmoi directory existence
   ansible.builtin.stat:
@@ -40,14 +46,23 @@
   register: chezmoi_source_directory
 
 - name: Install chezmoi source
-  ansible.builtin.shell: "BW_SESSION={{ BW_SESSION }} chezmoi init https://github.com/elindorath/dotfiles.git --apply --branch chezmoi"
-  when: not chezmoi_source_directory.stat.exists
+  ansible.builtin.command: "chezmoi init https://github.com/elindorath/dotfiles.git --apply --branch chezmoi"
+  environment:
+    BW_SESSION: "{{ bw_session }}"
+  when:
+    - not chezmoi_source_directory.stat.exists
 
 - name: Update chezmoi source
-  ansible.builtin.shell: "BW_SESSION={{ BW_SESSION }} chezmoi update"
-  when: chezmoi_source_directory.stat.exists
+  ansible.builtin.command: "chezmoi update"
+  environment:
+    BW_SESSION: "{{ bw_session }}"
+  when:
+    - chezmoi_source_directory.stat.exists
 
 - name: Allow ~/.envrc
   ansible.builtin.command: "asdf exec direnv allow ."
   args:
     chdir: "{{ ansible_env.HOME }}"
+  register: direnv_allow_command
+  changed_when:
+    - direnv_allow_command.rc != 0

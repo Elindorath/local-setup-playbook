@@ -35,7 +35,6 @@
   notify: killall finder
 
 
-
 # - name: Finder - Allow quitting via ⌘ + Q; doing so will also hide desktop icons
 #   community.general.osx_defaults:
 #     domain: com.apple.finder

@@ -8,7 +8,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     xcode-select --install
   fi
 
-  # sudo xcodebuild -license
+  if which xcodebuild 1>/dev/null 2>&1 && ! xcodebuild -checkFirstLaunchStatus 1>/dev/null 2>&1; then
+    echo "Accepting Xcode license"
+    sudo xcodebuild -license accept
+  fi
 
   if ! /usr/bin/pgrep oahd 1>/dev/null 2>&1; then
     echo "Installing rosetta 2"
@@ -47,7 +50,7 @@ else
 fi
 
 echo "Configuring asdf"
-# shellcheck source=/usr/local/opt/asdf/libexec/asdf.sh
+# shellcheck source=/opt/homebrew/opt/asdf/libexec/asdf.sh
 source "$(brew --prefix asdf)/libexec/asdf.sh"
 
 # Install Python
@@ -95,6 +98,7 @@ You still need to do a few things:
 - Set hotkey
 - Set search scope
 - Request permissions
+- Fill the license field
 
 --- Google Chrome ---
 - Connect to your accounts
@@ -103,18 +107,58 @@ You still need to do a few things:
 --- Teamviewer ---
 - Request permissions
 
+--- Slack ---
+- Connect to your accounts
+
+--- Docker ---
+- Allow privileged access at first start
+- Allow \"Always download update\" in preferences
+- Connect to Docker Hub
+
+--- Spectacle ---
+- Allow it to open at startup
+- Set \"Launch it as a background process\"
+
+--- Bartender ---
+- Fill the license field
+- Allow it to open at startup
+- Configure it
+
+--- iStat Menu ---
+- Fill the license field
+- Configure it
+- Request permissions for calendar access
+
+--- Notion ---
+- Connect to your accounts
+
+--- Postico ---
+- Fill the license field  (TODO)
+
+--- Tooth Fairy
+- Allow it to open at startup
+- Connect your bluetooth devices
+
 --- General ---
-- If you have the notification icons crossed out, run `killall NotificationCenter`
+- In System Preferences > Dock && menu bar > Monitor, remove it from the menu bar
+- In System Preferences > Dock && menu bar > Sound, remove it from the menu bar
+- In System Preferences > Dock && menu bar > Listening, remove it from the menu bar
+- In System Preferences > Dock && menu bar > Battery, remove it from the menu bar
+- In System Preferences > Dock && menu bar > Spotlight, remove it from the menu bar
+- In System Preferences > Keyboard > Shortcuts > Spotlight, remove the shortcut to show the search bar
+- In System Preferences > Siri, hide it in the menu bar
+- In System Preferences > Bluetooth, display it in the menu bar
+- If you have the notification icons crossed out, run \`killall NotificationCenter\`
 "
 
 echo "Some settings need you to re-log into your session"
 while true; do
-  read -p "Do you want to be logged out? (y/n) " yn
+  read -r -p "Do you want to be logged out? (y/n) " yn
   case "$yn" in
     [yY])
       echo "Logging out in 5s..."
       sleep 5
-      launchctl bootout "gui/$(id -u $(whoami))"
+      launchctl bootout "gui/$(id -u "$(whoami)")"
       break
       ;;
     [nN])

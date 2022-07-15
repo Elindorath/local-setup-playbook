@@ -1,4 +1,4 @@
 ---
 - name: killall dock
   ansible.builtin.command: killall Dock
-  ignore_errors: true
+  ignore_errors: true # noqa ignore-errors

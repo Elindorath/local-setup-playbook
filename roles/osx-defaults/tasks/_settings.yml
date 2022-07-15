@@ -125,9 +125,10 @@
 
 # Screenshots
 - name: Screenshots - Create screenshots directory
-  file:
+  ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/Screenshots"
     state: directory
+    mode: 0700
 
 - name: Screenshots - Save screenshots to a directory
   community.general.osx_defaults:

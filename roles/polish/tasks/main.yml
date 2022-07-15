@@ -2,6 +2,9 @@
 # Chrome
 - name: Set Google Chrome as default browser
   ansible.builtin.command: "open -a \"Google Chrome\" --args --make-default-browser"
+  register: chrome_default_command
+  changed_when:
+    - chrome_default_command.rc != 0
 
 # TouchID
 - name: Allow TouchID for sudo operations
@@ -16,6 +19,14 @@
 - name: Get zsh path installed by homebrew
   ansible.builtin.shell: echo "$(brew --prefix zsh)/bin/zsh"
   register: zsh_path
+  changed_when:
+    - zsh_path.rc != 0
+
+- name: Get current default shell
+  ansible.builtin.shell: "set -o pipefail && dscl . -read ~/ UserShell | sed 's/UserShell: //'"
+  register: current_default_shell
+  changed_when:
+    - current_default_shell.rc != 0
 
 - name: Allow zsh installed by homebrew
   ansible.builtin.lineinfile:
@@ -26,12 +37,19 @@
   become: true
 
 - name: Set default shell to zsh installed by homebrew
-  ansible.builtin.shell: "chsh -s {{ zsh_path.stdout | quote }}"
+  ansible.builtin.command: "chsh -s {{ zsh_path.stdout | quote }}"
+  register: set_default_shell
+  when:
+    - current_default_shell.stdout != zsh_path.stdout
+  changed_when:
+    - set_default_shell.rc != 0
 
 # Finder favorites
 - name: Get finder favorites list
   ansible.builtin.command: "mysides list"
   register: existing_finder_favorites
+  changed_when:
+    - existing_finder_favorites.rc != 0
 
 - name: Remove all finder favorites
   ansible.builtin.command: "mysides remove {{ item }}"
@@ -41,12 +59,16 @@
 - name: Set finder favorites
   ansible.builtin.command: "mysides add {{ item.name }} {{ item.uri }}"
   loop: "{{ finder_favorites }}"
+  register: add_finder_favorites
+  changed_when:
+    - add_finder_favorites.rc != 0
 
 # Basic dev architecture
 - name: Create dev directory
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/dev"
     state: directory
+    mode: 0700
 
 - name: Set symlink to chezmoi repository
   ansible.builtin.file:
@@ -56,16 +78,24 @@
 
 - name: Infer repositories config
   ansible.builtin.set_fact:
-    repositories_to_clone_config: "{{ (repositories_to_clone_config | default([])) + [ item | combine({ 'dest': (item.directory, item.repo | split('/') | last | splitext | first) | path_join }) ] }}"
+    repositories_to_clone_config: "{{
+      (repositories_to_clone_config | default([]))
+      + [
+        item | combine({
+          'dest': (item.directory, item.repo | split('/') | last | splitext | first) | path_join
+        })
+      ]
+      }}"
   loop: "{{ repositories_to_clone }}"
 
 - name: Ensure parent directories of repositories exist
   ansible.builtin.file:
     path: "{{ item.directory }}"
     state: directory
+    mode: 0755
   loop: "{{ repositories_to_clone_config }}"
 
-- name: Clone repositories
+- name: Clone repositories # noqa git-latest
   ansible.builtin.git:
     repo: "{{ item.repo }}"
     dest: "{{ item.dest }}"

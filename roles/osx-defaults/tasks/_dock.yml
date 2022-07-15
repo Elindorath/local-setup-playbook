@@ -72,7 +72,6 @@
   notify: killall dock
 
 
-
 # - name: Dock - Hot corners
 #   community.general.osx_defaults:
 #     domain: com.apple.dock
