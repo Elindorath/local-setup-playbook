@@ -3,6 +3,31 @@
 - name: Set Google Chrome as default browser
   ansible.builtin.command: "open -a \"Google Chrome\" --args --make-default-browser"
 
+# TouchID
+- name: Allow TouchID for sudo operations
+  ansible.builtin.lineinfile:
+    path: "/etc/pam.d/sudo"
+    line: "auth       sufficient     pam_tid.so"
+    state: present
+    insertafter: "# sudo: auth account password session"
+  become: true
+
+# Default shell
+- name: Get zsh path installed by homebrew
+  ansible.builtin.shell: echo "$(brew --prefix zsh)/bin/zsh"
+  register: zsh_path
+
+- name: Allow zsh installed by homebrew
+  ansible.builtin.lineinfile:
+    path: "/etc/shells"
+    line: "{{ zsh_path.stdout }}"
+    state: present
+    insertafter: EOF
+  become: true
+
+- name: Set default shell to zsh installed by homebrew
+  ansible.builtin.shell: "chsh -s {{ zsh_path.stdout | quote }}"
+
 # Finder favorites
 - name: Get finder favorites list
   ansible.builtin.command: "mysides list"

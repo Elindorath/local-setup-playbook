@@ -1,0 +1,98 @@
+---
+- name: Testing
+  hosts: localhost
+  vars:
+    - asdf_plugins_to_install:
+      # It's important that direnv is the first plugin to be installed
+      - name: direnv
+        repository: https://github.com/asdf-community/asdf-direnv.git
+        versions:
+          - latest
+        global: latest
+        after_install: asdf direnv setup --shell zsh --version latest
+      - name: python
+        repository: https://github.com/danhper/asdf-python
+        versions:
+          - latest
+        global: latest
+      - name: ansible-base
+        repository: https://github.com/amrox/asdf-pyapp
+        versions:
+          - latest
+        global: latest
+        env:
+          ASDF_PYAPP_INCLUDE_DEPS: 1
+      - name: nodejs
+        repository: https://github.com/asdf-vm/asdf-nodejs.git
+        versions:
+          - latest
+        global: latest
+      - name: terraform
+        repository: https://github.com/asdf-community/asdf-hashicorp.git
+        versions:
+          - latest
+        global: latest
+      - name: terraform-ls
+        repository: https://github.com/asdf-community/asdf-hashicorp.git
+        versions:
+          - latest
+        global: latest
+      - name: awscli
+        repository: https://github.com/MetricMike/asdf-awscli.git
+        versions:
+          - latest
+        global: latest
+
+  tasks:
+    - name: Debug
+      ansible.builtin.debug:
+        var: ansible_facts.os_family
+      when: ansible_facts.os_family == "Darwin"
+
+    - name: Allow TouchID for sudo operations
+      ansible.builtin.lineinfile:
+        path: "/etc/pam.d/sudo"
+        line: "auth       sufficient     pam_tid.so"
+        state: present
+        insertafter: "# sudo: auth account password session"
+      become: true
+
+
+
+
+    # - name: Get finder favorites list
+    #   ansible.builtin.command: "mysides list"
+    #   register: existing_finder_favorites
+
+    # - name: Remove all finder favorites
+    #   ansible.builtin.command: "mysides remove {{ item }}"
+    #   loop: "{{ existing_finder_favorites.stdout | split('\n') | map('split', ' -> ') | map('first') }}"
+    #   when: item | length > 0
+
+    # - name: Set finder favorites
+    #   ansible.builtin.command: "mysides add {{ item.name }} {{ item.uri }}"
+    #   loop: "{{ finder_favorites }}"
+
+
+
+
+
+    # - name: Remove all items from the Dock
+    #   ansible.builtin.command: "/usr/local/bin/dockutil --remove all --no-restart"
+
+    # - name: Set the default Dock items
+    #   ansible.builtin.command: "/usr/local/bin/dockutil --add {{ item | quote }} --no-restart"
+    #   loop: "{{ dock_applications }}"
+    #   # changed_when: true
+    #   # notify: killall dock
+
+    # - name: Restart dock
+    #   ansible.builtin.command: killall Dock
+
+
+#  -> nwnode://domain-AirDrop
+# Récents -> file:///System/Library/CoreServices/Finder.app/Contents/Resources/MyLibraries/myDocuments.cannedSearch/
+# Applications -> file:///Applications/
+# Bureau -> file:///Users/elindorath/Desktop/
+# Documents -> file:///Users/elindorath/Documents/
+# Téléchargements -> file:///Users/elindorath/Downloads/
