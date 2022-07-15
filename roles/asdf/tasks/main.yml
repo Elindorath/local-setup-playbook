@@ -12,7 +12,7 @@
 - name: Install asdf plugin tool versions
   ansible.builtin.command: "asdf install {{ item.0.name }} {{ item.1 }}"
   args:
-    creates: "{{ ansible_env.HOME }}/.asdf/installs/{{ item.0.name }}"
+    creates: "{{ ansible_env.HOME }}/.asdf/installs/{{ item.0.name }}/{{ item.1 }}"
   environment: "{{ item.0.env | default({}) }}"
   with_subelements:
     - "{{ asdf_plugins_to_install }}"
