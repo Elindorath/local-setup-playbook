@@ -2,3 +2,5 @@
 *.retry
 .ansible/
 test.yml
+.envrc
+.env
