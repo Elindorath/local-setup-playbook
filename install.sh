@@ -142,7 +142,8 @@ You still need to do a few things:
 
 --- Tooth Fairy
 - Allow it to open at startup
-- Connect your bluetooth devices
+- Mask the icon in Dock
+- Connect your bluetooth devices and create their icon
 
 --- General ---
 - In System Preferences > Dock && menu bar > Monitor, remove it from the menu bar

@@ -12,6 +12,7 @@
 - https://github.com/moretension/duti
 - https://github.com/OJFord/loginitems
 - JAX (Javascript for Automation) https://github.com/JXA-Cookbook/JXA-Cookbook
+- https://github.com/BuonOmo/yarn-completion
 
 ## rbw
 - `rbw config set email elindorath@gmail.com`
