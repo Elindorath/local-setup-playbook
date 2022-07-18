@@ -1,4 +1,5 @@
-# TODO:
+# TODO
+
 - [ ] Handle ssh keys
 - [ ] Handle gpg keys
 - [ ] Handle zsh plugins customization
@@ -10,12 +11,29 @@
 - [ ] Find a way to track docker extension in dotfiles
 - [ ] Find a better pager than less
 
-##  Tools of interest:
-- https://github.com/so-fancy/diff-so-fancy
-- https://github.com/moretension/duti
-- https://github.com/OJFord/loginitems
-- JAX (Javascript for Automation) https://github.com/JXA-Cookbook/JXA-Cookbook
-- https://github.com/BuonOmo/yarn-completion
+## Tools of interest
+
+### Zsh plugins
+
+- <https://github.com/Valiev/almostontop>
+- <https://github.com/BuonOmo/yarn-completion>
+- <https://github.com/begris/bw-zsh-plugin>
+- <https://github.com/birdhackor/zsh-exa-ls-plugin>
+- <https://github.com/lzambarda/hbt>
+- <https://github.com/larkery/zsh-histdb> (Find a way to integrate it with zsh-autocomplete)
+- <https://github.com/bric3/nice-exit-code>
+
+### Command line tools
+
+- <https://github.com/so-fancy/diff-so-fancy>
+- <https://github.com/moretension/duti>
+- <https://github.com/OJFord/loginitems>
+- <https://the.exa.website/>
+- <https://github.com/denisidoro/navi>
+- <https://github.com/mixn/carbon-now-cli>
+- <https://github.com/httpie/httpie>
+- JAX (Javascript for Automation) <https://github.com/JXA-Cookbook/JXA-Cookbook>
 
 ## rbw
+
 - `rbw config set email elindorath@gmail.com`
