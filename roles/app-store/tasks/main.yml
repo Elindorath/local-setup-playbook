@@ -4,10 +4,28 @@
     state: present
     id: "{{ mac_application_ids_to_install }}"
 
+- name: Get installed Xcode version
+  ansible.builtin.shell: set -o pipefail && xcodebuild -version | grep '^Xcode\s' | sed -E 's/^Xcode[[:space:]]+([0-9\.]+)/\1/'
+  register: xcode_version
+  changed_when:
+    - xcode_version.rc != 0
+
+- name: Get accepted Xcode license version
+  ansible.builtin.shell: "
+    set -o pipefail
+    && defaults read /Library/Preferences/com.apple.dt.Xcode 2> /dev/null
+    | grep IDEXcodeVersionForAgreedToGMLicense
+    | cut -d '\"' -f 2"
+  register: xcode_license_version
+  changed_when:
+    - xcode_license_version.rc != 0
+
 - name: Accept Xcode license
   ansible.builtin.command: xcodebuild -license accept
   register: xcode_license
   become: true
+  when:
+    - xcode_version.stdout != xcode_license_version.stdout
   changed_when:
     - xcode_license.rc != 0
 

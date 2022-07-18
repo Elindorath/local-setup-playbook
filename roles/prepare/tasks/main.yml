@@ -2,3 +2,12 @@
 - name: Close any open System Preferences panes
   ansible.builtin.command: osascript -e 'tell application "System Preferences" to quit'
   changed_when: true
+
+# TouchID
+- name: Allow TouchID for sudo operations
+  ansible.builtin.lineinfile:
+    path: "/etc/pam.d/sudo"
+    line: "auth       sufficient     pam_tid.so"
+    state: present
+    insertafter: "# sudo: auth account password session"
+  become: true

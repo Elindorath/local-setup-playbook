@@ -6,6 +6,9 @@
 - [ ] Consider the possibility of merging this repo with dotfiles (see [this doc](https://www.chezmoi.io/user-guide/advanced/customize-your-source-directory))
 - [ ] Make dotfiles use `main` branch instead of `chezmoi`
 - [ ] Make a PR to asdf to specify the unit of `plugin_repository_last_check_duration` ([ref](https://github.com/asdf-vm/asdf/search?q=plugin_repository_last_check_duration))
+- [ ] Find a way to avoid git using osxkeychain as credential helper to give rbw exclusivity (unset it in `git config --system` or maybe add a `set` handler in rbw credential helper)
+- [ ] Find a way to track docker extension in dotfiles
+- [ ] Find a better pager than less
 
 ##  Tools of interest:
 - https://github.com/so-fancy/diff-so-fancy

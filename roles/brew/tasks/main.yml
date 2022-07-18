@@ -18,4 +18,5 @@
 - name: Install homebrew casks
   homebrew_cask:
     name: "{{ homebrew_casks_to_install }}"
-    state: present
+    greedy: true
+    state: upgraded

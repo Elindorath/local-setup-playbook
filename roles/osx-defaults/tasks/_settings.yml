@@ -163,6 +163,13 @@
     value: true
     state: present
 
+- name: Battery - Avoid dimming the screen changing power source
+  ansible.builtin.command: pmset -a lessbright 0
+  register: avoid_dimming
+  become: true
+  changed_when:
+    - avoid_dimming.rc != 0
+
 # Screen saver
 # - name: Screen saver - Require password immediately after sleep or screen saver begins 1/2
 #   community.general.osx_defaults:
