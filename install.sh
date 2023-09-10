@@ -58,6 +58,12 @@ echo "Configuring asdf"
 # shellcheck source=/opt/homebrew/opt/asdf/libexec/asdf.sh
 source "$(brew --prefix asdf)/libexec/asdf.sh"
 
+# When running this script, the following variables are not already set.
+# They will be by the not already installed dotfiles.
+# They are needed for asdf to work as expected.
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export ASDF_DATA_DIR="${XDG_CONFIG_HOME}/asdf"
+
 # Install Python
 if ! asdf which python 1>/dev/null 2>&1; then
   echo "Installing python"
@@ -94,7 +100,7 @@ else
 fi
 
 echo "Running ansible playbook"
-ansible-playbook -i "localhost," -c local --become-method=sudo -K -u "$(whoami)" playbook.yml
+ansible-playbook -i "localhost," -c local --become-method=sudo -K -u "$(whoami)" -e "ansible_python_interpreter=$(asdf which python)" playbook.yml
 
 echo "\
 You still need to do a few things:

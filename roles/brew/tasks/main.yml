@@ -1,4 +1,18 @@
 ---
+- name: Include common vars
+  ansible.builtin.include_vars:
+    file: common.yml
+    name: included_common
+
+- name: Include os specific vars
+  ansible.builtin.include_vars:
+    file: "{{ ansible_distribution }}.yml"
+    name: included_os_specific
+
+- name: Merge common and os specific vars
+  ansible.builtin.set_fact:
+    merged: "{{ lookup('community.general.merge_variables', 'included_', pattern_type='prefix') }}"
+
 - name: Update and upgrade packages for Homebrew
   community.general.homebrew:
     update_homebrew: true
@@ -7,16 +21,19 @@
 - name: Tap brew repos
   community.general.homebrew_tap:
     state: present
-    name: "{{ homebrew_repositories_to_tap }}"
+    name: "{{ merged.homebrew_repositories_to_tap }}"
+  when: merged.homebrew_repositories_to_tap | length != 0
 
 - name: Install homebrew packages
   community.general.homebrew:
-    name: "{{ homebrew_packages_to_install }}"
+    name: "{{ merged.homebrew_packages_to_install }}"
     state: present
+  when: merged.homebrew_packages_to_install | length != 0
   tags: [brew]
 
 - name: Install homebrew casks
   homebrew_cask:
-    name: "{{ homebrew_casks_to_install }}"
+    name: "{{ merged.homebrew_casks_to_install }}"
     greedy: true
     state: upgraded
+  when: merged.homebrew_casks_to_install | length != 0 and ansible_distribution == 'MacOSX'

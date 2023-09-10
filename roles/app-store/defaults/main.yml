@@ -3,6 +3,7 @@ mac_application_ids_to_install:
   - 937984704 # Amphetamine
   - 1191449274 # ToothFairy
   - 497799835 # Xcode
+  - 1287239339 # ColorSlurp
   # Do not work, throw an error
   # Probably because it is considered a purchase despite it is free
   # - 1352778147 # Bitwarden desktop

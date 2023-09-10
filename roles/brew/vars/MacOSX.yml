@@ -1,0 +1,57 @@
+---
+homebrew_repositories_to_tap:
+  - homebrew/cask-fonts
+  - jorgelbg/tap
+
+homebrew_packages_to_install:
+  - pinentry-mac
+  - pinentry-touchid
+  - duti
+  - mas
+
+homebrew_casks_to_install:
+  - google-chrome
+  - firefox
+  - iterm2
+  - visual-studio-code
+  - slack
+  - notion
+  - spotify
+  - postico
+  - postman
+  - whatsapp
+  - teamviewer
+  - react-native-debugger
+  - android-studio
+  - the-unarchiver
+  - vlc
+  - discord
+  - istat-menus
+  - rectangle
+  - bartender
+  - cleanmymac
+  - alfred
+  - daisydisk
+  - docker
+  - font-hack-nerd-font
+  # Quick Look plugins
+  - qlcolorcode
+  - qlstephen
+  - qlmarkdown
+  - quicklook-json
+  - qlimagesize
+  - suspicious-package
+  - apparency
+  - quicklookase
+  # Need rosetta 2
+  # - qlvideo
+  - provisionql
+  - quicklookapk
+  - quicklook-pat
+  # Temporary solution until the original formula is updated in homebrew
+  # See: https://github.com/kcrawford/dockutil/issues/127
+  - hpedrorodrigues/tools/dockutil
+  - mysides
+  # Since vlc doesn't support skins on OS X, I use Iina as a beautiful alternative
+  - iina
+  - 1password/tap/1password-cli

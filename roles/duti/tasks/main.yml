@@ -1,0 +1,5 @@
+---
+- name: Set programs to open file type
+  ansible.builtin.command: "duti -s {{ item.value | quote }} .{{ item.key | quote }} all"
+  changed_when: true
+  with_dict: "{{ extension_program_mapping }}"

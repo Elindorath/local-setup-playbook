@@ -1,12 +1,30 @@
 ---
 - name: Install & setup
   hosts: all
-  roles:
-    - prepare
-    - brew
-    - app-store
-    - dock
-    - osx-defaults
-    - asdf
-    - dotfiles
-    - polish
+  vars:
+    custom_roles:
+      - name: prepare
+        distributions: ['MacOSX']
+      - name: brew
+        distributions: ['all']
+      - name: app-store
+        distributions: ['MacOSX']
+      - name: dock
+        distributions: ['MacOSX']
+      - name: osx-defaults
+        distributions: ['MacOSX']
+      - name: duti
+        distributions: ['MacOSX']
+      - name: asdf
+        distributions: ['all']
+      - name: dotfiles
+        distributions: ['all']
+      - name: polish
+        distributions: ['all']
+
+  tasks:
+    - name: Include 'prepare' role
+      ansible.builtin.include_role:
+        name: "{{ item.name }}"
+      loop: "{{ custom_roles }}"
+      when: item.distributions is contains('all') or item.distributions is contains(ansible_distribution)

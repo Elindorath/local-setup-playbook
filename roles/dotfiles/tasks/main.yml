@@ -46,7 +46,7 @@
   register: chezmoi_source_directory
 
 - name: Install chezmoi source
-  ansible.builtin.command: "chezmoi init https://github.com/elindorath/dotfiles.git --apply --branch chezmoi"
+  ansible.builtin.command: "chezmoi init git@github.com:elindorath/dotfiles.git --apply --branch chezmoi"
   environment:
     BW_SESSION: "{{ bw_session }}"
   when:

@@ -1,0 +1,26 @@
+---
+- name: Include common vars
+  ansible.builtin.include_vars:
+    file: common.yml
+    name: included_common
+
+- name: Include os specific vars
+  ansible.builtin.include_vars:
+    file: "{{ ansible_os_family }}.yml"
+    name: included_os_specific
+
+- name: Merge common and os specific vars
+  ansible.builtin.set_fact:
+    merged: "{{ lookup('community.general.merge_variables', 'included_', pattern_type='prefix') }}"
+
+- name: Prints imported vars
+  ansible.builtin.debug:
+    var: merged.homebrew_packages_to_install
+
+- name: Prints var
+  ansible.builtin.debug:
+    var: ansible_distribution
+
+- name: Prints all facts
+  ansible.builtin.debug:
+    var: ansible_facts

@@ -22,3 +22,11 @@
     type: bool
     value: true
     state: present
+
+- name: Pinentry - Disable storing password in keychain by pinentry-mac
+  community.general.osx_defaults:
+    domain: org.gpgtools.common
+    key: DisableKeychain
+    type: bool
+    value: true
+    state: present

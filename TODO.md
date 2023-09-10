@@ -1,7 +1,7 @@
 # TODO
 
-- [ ] Handle ssh keys
-- [ ] Handle gpg keys
+- [x] Handle ssh keys
+- [x] Handle gpg keys
 - [ ] Handle zsh plugins customization
 - [ ] Make a proper `README.md`
 - [ ] Consider the possibility of merging this repo with dotfiles (see [this doc](https://www.chezmoi.io/user-guide/advanced/customize-your-source-directory))
@@ -10,6 +10,8 @@
 - [ ] Find a way to avoid git using osxkeychain as credential helper to give rbw exclusivity (unset it in `git config --system` or maybe add a `set` handler in rbw credential helper)
 - [ ] Find a way to track docker extension in dotfiles
 - [ ] Find a better pager than less
+- [ ] Change git remote of dotfiles to set it to ssh
+- [ ] Make a PR to react-native-debugger to allow another location for config files
 
 ## Tools of interest
 
@@ -18,21 +20,26 @@
 - <https://github.com/Valiev/almostontop>
 - <https://github.com/BuonOmo/yarn-completion>
 - <https://github.com/begris/bw-zsh-plugin>
-- <https://github.com/birdhackor/zsh-exa-ls-plugin>
 - <https://github.com/lzambarda/hbt>
 - <https://github.com/larkery/zsh-histdb> (Find a way to integrate it with zsh-autocomplete)
 - <https://github.com/bric3/nice-exit-code>
 
 ### Command line tools
 
-- <https://github.com/so-fancy/diff-so-fancy>
-- <https://github.com/moretension/duti>
 - <https://github.com/OJFord/loginitems>
-- <https://the.exa.website/>
 - <https://github.com/denisidoro/navi>
 - <https://github.com/mixn/carbon-now-cli>
 - <https://github.com/httpie/httpie>
+- <https://github.com/zdharma/zsh-lint>
+- <https://github.com/r-darwish/topgrade>
 - JAX (Javascript for Automation) <https://github.com/JXA-Cookbook/JXA-Cookbook>
+
+### Apps
+
+- <https://alt-tab-macos.netlify.app/>
+- <https://authy.com/>
+- <https://drive.google.com>
+- <https://sipapp.io/>
 
 ## rbw
 

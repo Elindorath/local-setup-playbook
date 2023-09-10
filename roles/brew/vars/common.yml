@@ -1,0 +1,51 @@
+---
+homebrew_repositories_to_tap: []
+
+homebrew_packages_to_install:
+  - act
+  - exa
+  - fd
+  - bat
+  - openssl
+  - readline
+  - sqlite3
+  - xz
+  - zlib
+  - gcc
+  - hadolint
+  # Asdf dependencies
+  - git
+  - curl
+  # Asdf dependencies - end
+  # Awscli asdf plugin dependencies
+  - bash
+  # - tar
+  - unzip
+  # Awscli asdf plugin dependencies - end
+  - zsh
+  - chezmoi
+  - asdf
+  - bitwarden-cli
+  - rbw
+  - jq
+  - fzf
+  - htop
+  - chroma
+  - shellcheck
+  - vim
+  - ansible-lint
+  # Node dependencies
+  - gpg
+  - gawk
+  # ripgrep-all dependencies
+  - pandoc
+  - poppler
+  - tesseract
+  - ffmpeg
+  - ripgrep-all
+  # Ruby dependencies
+  # - openssl@1.1
+  # - readline
+# pinentry
+
+homebrew_casks_to_install: []

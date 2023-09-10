@@ -1,0 +1,18 @@
+---
+- name: Get finder favorites list
+  ansible.builtin.command: "mysides list"
+  register: existing_finder_favorites
+  changed_when:
+    - existing_finder_favorites.rc != 0
+
+- name: Remove all finder favorites
+  ansible.builtin.command: "mysides remove {{ item }}"
+  loop: "{{ existing_finder_favorites.stdout | split('\n') | map('split', ' -> ') | map('first') }}"
+  when: item | length > 0
+
+- name: Set finder favorites
+  ansible.builtin.command: "mysides add {{ item.name }} {{ item.uri }}"
+  loop: "{{ finder_favorites }}"
+  register: add_finder_favorites
+  changed_when:
+    - add_finder_favorites.rc != 0
