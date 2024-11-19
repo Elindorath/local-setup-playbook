@@ -3,7 +3,7 @@ homebrew_repositories_to_tap: []
 
 homebrew_packages_to_install:
   - act
-  - exa
+  - eza
   - fd
   - bat
   - openssl
