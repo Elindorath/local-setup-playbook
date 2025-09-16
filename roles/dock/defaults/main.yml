@@ -7,9 +7,10 @@ dock_applications:
   - /Applications/WhatsApp.app
   - /Applications/Slack.app
   - /Applications/Postico.app
-  - /Applications/Postman.app
+  - /Applications/Insomnia.app
   - /Applications/iTerm.app
   - /Applications/Google Chrome.app
-  - /Applications/Visual Studio Code.app
-  - /Applications/Spotify.app
-  - /Applications/TeamViewer.app
+  - /Applications/Cursor.app
+  - /Applications/Qobuz.app
+  - /Applications/Linear.app
+  - /Applications/1Password.app

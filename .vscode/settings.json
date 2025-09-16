@@ -1,0 +1,9 @@
+{
+  "debug.javascript.defaultRuntimeExecutable": {
+    "pwa-node": "${workspaceFolder}/.vscode/mise-tools/node"
+  },
+  "python.defaultInterpreterPath": "${workspaceFolder}/.vscode/mise-tools/python",
+  "ansible.python.interpreterPath": "/Users/elindorath/.local/share/mise/installs/python/3.10.5/bin/python",
+  "mise.configureExtensionsUseShims": false,
+  "mise.configureExtensionsUseSymLinks": true
+}

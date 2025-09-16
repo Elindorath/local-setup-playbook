@@ -58,11 +58,3 @@
     BW_SESSION: "{{ bw_session }}"
   when:
     - chezmoi_source_directory.stat.exists
-
-- name: Allow ~/.envrc
-  ansible.builtin.command: "asdf exec direnv allow ."
-  args:
-    chdir: "{{ ansible_env.HOME }}"
-  register: direnv_allow_command
-  changed_when:
-    - direnv_allow_command.rc != 0

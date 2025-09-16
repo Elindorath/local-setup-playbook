@@ -28,7 +28,7 @@ fi
 
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   echo "Installing build-essential"
-  sudo apt-get install build-essential
+  sudo apt-get install --assume-yes build-essential libffi-dev
 fi
 
 # Install Homebrew, if not already installed
@@ -43,54 +43,20 @@ elif [[ -x "/usr/local/bin/brew" ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 else
   echo "Installing homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-# Install asdf with its dependencies
-if ! which asdf 1>/dev/null 2>&1; then
-  echo "Installing asdf"
-  brew install asdf openssl readline sqlite3 xz zlib
+# Install mise
+if ! which mise 1>/dev/null 2>&1; then
+  echo "Installing mise"
+  brew install mise
 else
-  echo "asdf is already installed"
+  echo "mise is already installed"
 fi
 
-echo "Configuring asdf"
-# shellcheck source=/opt/homebrew/opt/asdf/libexec/asdf.sh
-source "$(brew --prefix asdf)/libexec/asdf.sh"
-
-# When running this script, the following variables are not already set.
-# They will be by the not already installed dotfiles.
-# They are needed for asdf to work as expected.
-export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-export ASDF_DATA_DIR="${XDG_CONFIG_HOME}/asdf"
-
-# Install Python
-if ! asdf which python 1>/dev/null 2>&1; then
-  echo "Installing python"
-  asdf plugin add python || echo "python asdf plugin already installed"
-  asdf install python latest || echo "python version already installed"
-  asdf global python latest || echo "python version already set globally"
-else
-  echo "python is already installed"
-fi
-
-if [ ! -f "$HOME/.tool-versions" ] || ! grep python < ~/.tool-versions; then
-  asdf global python latest
-fi
-
-# Install Ansible
-if ! asdf which ansible 1>/dev/null 2>&1; then
-  echo "Installing ansible"
-  ASDF_PYAPP_INCLUDE_DEPS=1 asdf plugin add ansible https://github.com/amrox/asdf-pyapp.git  || echo "ansible asdf plugin already installed"
-  asdf install ansible latest || echo "ansible version already installed"
-  asdf global ansible latest || echo "python version already set globally"
-else
-  echo "ansible is already installed"
-fi
-
-if [ ! -f "$HOME/.tool-versions" ] || ! grep ansible < ~/.tool-versions; then
-  asdf global ansible latest
-fi
+# Install dependencies
+echo "Installing dependencies"
+mise install
 
 if [ ! -d ".ansible/collections/ansible_collections/community/general" ]; then
   echo "Installing ansible requirements"
@@ -100,7 +66,7 @@ else
 fi
 
 echo "Running ansible playbook"
-ansible-playbook -i "localhost," -c local --become-method=sudo -K -u "$(whoami)" -e "ansible_python_interpreter=$(asdf which python)" playbook.yml
+ansible-playbook -i "localhost," -c local --become-method=sudo -K -u "$(whoami)" -e "ansible_python_interpreter=$(mise which python)" playbook.yml
 
 echo "\
 You still need to do a few things:

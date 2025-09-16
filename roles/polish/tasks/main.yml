@@ -36,9 +36,9 @@
     - set_default_shell.rc != 0
 
 # Finder favorites
-- name: Configure Finder favorites
-  ansible.builtin.include_tasks: finder.yml
-  when: ansible_distribution == 'MacOSX'
+# - name: Configure Finder favorites
+#   ansible.builtin.include_tasks: finder.yml
+#   when: ansible_distribution == 'MacOSX'
 
 # Basic dev architecture
 - name: Create dev directory
