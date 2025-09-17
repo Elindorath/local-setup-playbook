@@ -1,6 +1,5 @@
 ---
 homebrew_repositories_to_tap:
-  - homebrew/cask-fonts
   - jorgelbg/tap
 
 homebrew_packages_to_install:
@@ -43,9 +42,7 @@ homebrew_casks_to_install:
   # - provisionql
   # - quicklookapk
   # - quicklook-pat
-  # Temporary solution until the original formula is updated in homebrew
-  # See: https://github.com/kcrawford/dockutil/issues/127
-  - hpedrorodrigues/tools/dockutil
+  - dockutil
   - mysides
   # Since vlc doesn't support skins on OS X, I use Iina as a beautiful alternative
   - iina
