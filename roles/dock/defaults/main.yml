@@ -1,12 +1,12 @@
 ---
 dock_applications:
-  - /System/Applications/Launchpad.app
-  - /System/Applications/System Preferences.app
+  - /System/Applications/Apps.app
+  - /System/Applications/System Settings.app
   - /System/Applications/App Store.app
   - /System/Applications/Messages.app
   - /Applications/WhatsApp.app
   - /Applications/Slack.app
-  - /Applications/Postico.app
+  - /Applications/Postico 2.app
   - /Applications/Insomnia.app
   - /Applications/iTerm.app
   - /Applications/Google Chrome.app

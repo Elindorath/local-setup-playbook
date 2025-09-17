@@ -87,7 +87,7 @@ You still need to do a few things:
 - Connect to your accounts
 - Allow notifications permission
 
---- Teamviewer ---
+--- AnyDesk ---
 - Request permissions
 
 --- Slack ---
@@ -129,16 +129,16 @@ You still need to do a few things:
 - In System Preferences > Dock && menu bar > Listening, remove it from the menu bar
 - In System Preferences > Dock && menu bar > Battery, remove it from the menu bar
 - In System Preferences > Dock && menu bar > Spotlight, remove it from the menu bar
+- In System Preferences > Dock && menu bar > Siri, remove it from the menu bar
+- In System Preferences > Dock && menu bar > Bluetooth, display it in the menu bar
 - In System Preferences > Keyboard > Shortcuts > Spotlight, remove the shortcut to show the search bar
-- In System Preferences > Siri, hide it in the menu bar
-- In System Preferences > Bluetooth, display it in the menu bar
 - If you have the notification icons crossed out, run \`killall NotificationCenter\`
 "
 
 echo "Some settings need you to re-log into your session"
 while true; do
-  read -r -p "Do you want to be logged out? (y/n) " yn
-  case "$yn" in
+  read -r "answer?Do you want to be logged out? (y/n) "
+  case "${answer}" in
     [yY])
       echo "Logging out in 5s..."
       sleep 5

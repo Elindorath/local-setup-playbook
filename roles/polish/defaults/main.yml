@@ -1,7 +1,7 @@
 ---
 repositories_to_clone:
   - repo: "https://github.com/elindorath/local-setup-playbook.git"
-    directory: "{{ ansible_env.HOME }}/dev/"
+    directory: "{{ ansible_env.HOME }}/dev/mine/"
 
 finder_favorites:
   - name: Récents
