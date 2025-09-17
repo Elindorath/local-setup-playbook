@@ -1,4 +1,16 @@
 ---
+- name: Ask for 1Password service account token
+  ansible.builtin.pause:
+    prompt: What is your 1Password service account token?
+    echo: true
+  register: asked_op_service_account_token
+  when:
+    - ansible_env.OP_SERVICE_ACCOUNT_TOKEN is not defined
+
+- name: Set OP_SERVICE_ACCOUNT_TOKEN fact
+  ansible.builtin.set_fact:
+    op_service_account_token: "{{ ansible_env.OP_SERVICE_ACCOUNT_TOKEN | default(asked_op_service_account_token.stdout) }}"
+
 - name: Get chezmoi source path
   ansible.builtin.command: "chezmoi source-path"
   register: chezmoi_source_path
@@ -13,13 +25,13 @@
 - name: Install chezmoi source
   ansible.builtin.command: "chezmoi init git@github.com:elindorath/dotfiles.git --apply --branch chezmoi"
   environment:
-    BW_SESSION: "{{ bw_session }}"
+    OP_SERVICE_ACCOUNT_TOKEN: "{{ op_service_account_token }}"
   when:
     - not chezmoi_source_directory.stat.exists
 
 - name: Update chezmoi source
   ansible.builtin.command: "chezmoi update"
   environment:
-    BW_SESSION: "{{ bw_session }}"
+    OP_SERVICE_ACCOUNT_TOKEN: "{{ op_service_account_token }}"
   when:
     - chezmoi_source_directory.stat.exists
