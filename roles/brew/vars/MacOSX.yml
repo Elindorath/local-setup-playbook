@@ -7,6 +7,7 @@ homebrew_packages_to_install:
   - pinentry-touchid
   - duti
   - mas
+  - dockutil
 
 homebrew_casks_to_install:
   - google-chrome
@@ -42,7 +43,6 @@ homebrew_casks_to_install:
   # - provisionql
   # - quicklookapk
   # - quicklook-pat
-  - dockutil
   - mysides
   # Since vlc doesn't support skins on OS X, I use Iina as a beautiful alternative
   - iina
