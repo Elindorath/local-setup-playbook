@@ -87,16 +87,16 @@
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: KeyRepeat
-    type: int
-    value: 2
+    type: float
+    value: 2.0
     state: present
 
 - name: Keyboard - Minimize key repetition delay
   community.general.osx_defaults:
     domain: NSGlobalDomain
     key: InitialKeyRepeat
-    type: int
-    value: 15
+    type: float
+    value: 15.0
     state: present
 
 # Trackpad

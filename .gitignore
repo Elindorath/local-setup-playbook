@@ -4,3 +4,5 @@
 test.yml
 .envrc
 .env
+
+.vscode/mise-tools/

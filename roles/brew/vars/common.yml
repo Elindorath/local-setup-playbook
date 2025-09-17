@@ -13,18 +13,14 @@ homebrew_packages_to_install:
   - zlib
   - gcc
   - hadolint
-  # Asdf dependencies
   - git
   - curl
-  # Asdf dependencies - end
-  # Awscli asdf plugin dependencies
   - bash
   # - tar
   - unzip
-  # Awscli asdf plugin dependencies - end
   - zsh
   - chezmoi
-  - asdf
+  - mise
   - bitwarden-cli
   - rbw
   - jq

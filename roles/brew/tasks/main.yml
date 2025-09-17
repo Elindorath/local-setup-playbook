@@ -36,4 +36,5 @@
     name: "{{ merged.homebrew_casks_to_install }}"
     greedy: true
     state: upgraded
+    install_options: force
   when: merged.homebrew_casks_to_install | length != 0 and ansible_distribution == 'MacOSX'
