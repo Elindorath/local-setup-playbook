@@ -50,13 +50,13 @@ fi
 if ! which mise 1>/dev/null 2>&1; then
   echo "Installing mise"
   brew install mise
-  eval "$(mise activate zsh)"
 else
   echo "mise is already installed"
 fi
 
 # Install dependencies
 echo "Installing dependencies"
+eval "$(mise activate zsh)"
 mise trust
 mise use python@3.13.7
 pip install --user pipx
