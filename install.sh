@@ -50,13 +50,18 @@ fi
 if ! which mise 1>/dev/null 2>&1; then
   echo "Installing mise"
   brew install mise
+  eval "$(mise activate zsh)"
 else
   echo "mise is already installed"
 fi
 
 # Install dependencies
 echo "Installing dependencies"
-mise install
+mise trust
+mise use python@3.13.7
+pip install --user pipx
+export PATH="$HOME/.local/bin:$PATH"
+mise use ansible@12.0.0
 
 if [ ! -d ".ansible/collections/ansible_collections/community/general" ]; then
   echo "Installing ansible requirements"

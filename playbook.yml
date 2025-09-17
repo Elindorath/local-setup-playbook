@@ -15,8 +15,6 @@
         distributions: ['MacOSX']
       - name: duti
         distributions: ['MacOSX']
-      - name: asdf
-        distributions: ['all']
       - name: dotfiles
         distributions: ['all']
       - name: polish
