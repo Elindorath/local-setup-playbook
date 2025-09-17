@@ -43,14 +43,14 @@
 # Basic dev architecture
 - name: Create dev directory
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/dev"
+    path: "{{ ansible_env.HOME }}/dev/mine"
     state: directory
     mode: "0o700"
 
 - name: Set symlink to chezmoi repository
   ansible.builtin.file:
     src: "{{ chezmoi_source_path.stdout }}"
-    dest: "{{ ansible_env.HOME }}/dev/dotfiles"
+    dest: "{{ ansible_env.HOME }}/dev/mine/dotfiles"
     state: link
 
 - name: Infer repositories config
